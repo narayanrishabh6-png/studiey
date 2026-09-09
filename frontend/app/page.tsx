@@ -15,6 +15,7 @@ country: string;
   official_source_url: string;
   application_url?: string | null;
   source_label: string;
+  verification_status: string;
   last_checked_at: string;
   summary: string;
   demo_only: boolean;
@@ -102,7 +103,7 @@ export default function Home() {
             <div className="meta"><span>📍 {o.country || "Location not specified"}</span><span>⏳ {o.deadline ?? "Deadline not specified"}</span><span>💰 {o.funding}</span></div>
             <p>{o.summary}</p>
             <div className="reasons">{match_reasons.map(r=><span key={r}>✓ {r}</span>)}</div>
-            <div className="source"><strong>Verified official source ✓</strong><span>{o.source_label}</span><span>Last checked: {new Date(o.last_checked_at).toLocaleString()}</span></div>
+            <div className="source"><strong>{o.verification_status === "verified" ? "Verified official source ✓" : "Verification pending"}</strong><span>{o.source_label}</span><span>Last checked: {new Date(o.last_checked_at).toLocaleString()}</span></div>
             <div className="actions"><a href={o.official_source_url} target="_blank">Official notice</a>{o.application_url && <a href={o.application_url} target="_blank">Apply</a>}<button>Save</button></div>
             {o.demo_only && <div className="demo">DEMO RECORD — NOT A REAL OPPORTUNITY</div>}
           </article>)}</div>

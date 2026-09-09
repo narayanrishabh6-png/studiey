@@ -125,6 +125,8 @@ app.post("/feed", async (req, res) => {
 const { data: dbOpportunities, error: dbError } = await supabase
   .from("opportunities")
   .select("*")
+  .eq("verification_status", "verified")
+  .eq("status", "active")
   .order("created_at", { ascending: false });
 
 if (dbError) {
