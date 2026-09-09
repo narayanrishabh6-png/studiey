@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { FormEvent, useMemo, useState } from "react";
 
@@ -8,8 +8,8 @@ type Opportunity = {
   institution: string;
   department?: string | null;
   discipline: string;
-  opportunity_type: string;
-  countries: string[];
+  category: string;
+country: string;
   funding: string;
   deadline?: string | null;
   official_source_url: string;
@@ -98,8 +98,8 @@ export default function Home() {
           {error && <div className="error">{error}</div>}
           {!feed.length && !error && <div className="empty"><div className="emptyIcon">SF</div><h3>Your personalized feed will appear here.</h3><p>The included data is synthetic demo data. Real opportunities will be added only after official-source ingestion is connected.</p></div>}
           <div className="cards">{feed.map(({opportunity:o, match_score, match_reasons}) => <article key={o.id} className="card">
-            <div className="cardTop"><div><div className="type">{o.opportunity_type.replaceAll("_", " ")}</div><h3>{o.title}</h3><div className="institution">{o.institution}{o.department ? ` · ${o.department}` : ""}</div></div><div className="score">{match_score}%<small>match</small></div></div>
-            <div className="meta"><span>📍 {o.countries.join(", ")}</span><span>⏳ {o.deadline ?? "Deadline not specified"}</span><span>💰 {o.funding}</span></div>
+            <div className="cardTop"><div><div className="type">{(o.category || "opportunity").replaceAll("_", " ")}</div><h3>{o.title}</h3><div className="institution">{o.institution}{o.department ? ` · ${o.department}` : ""}</div></div><div className="score">{match_score}%<small>match</small></div></div>
+            <div className="meta"><span>📍 {o.country || "Location not specified"}</span><span>⏳ {o.deadline ?? "Deadline not specified"}</span><span>💰 {o.funding}</span></div>
             <p>{o.summary}</p>
             <div className="reasons">{match_reasons.map(r=><span key={r}>✓ {r}</span>)}</div>
             <div className="source"><strong>Verified official source ✓</strong><span>{o.source_label}</span><span>Last checked: {new Date(o.last_checked_at).toLocaleString()}</span></div>

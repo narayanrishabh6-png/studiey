@@ -1,11 +1,52 @@
-const express = require("express");
+﻿const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
+const { createClient } = require("@supabase/supabase-js");
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SECRET_KEY
+);
 
 const app = express();
 const PORT = 8000;
 
 app.use(cors());
 app.use(express.json());
+
+app.get("/db-test", async (req, res) => {
+  const { data, error } = await supabase
+    .from("opportunities")
+    .select("id")
+    .limit(1);
+
+  if (error) {
+    return res.status(500).json({
+      connected: false,
+      error: error.message
+    });
+  }
+
+  res.json({
+    connected: true,
+    message: "Studiey successfully connected to Supabase"
+  });
+});
+
+app.get("/opportunities-db", async (req, res) => {
+  const { data, error } = await supabase
+    .from("opportunities")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    return res.status(500).json({
+      error: error.message
+    });
+  }
+
+  res.json(data);
+});
 
 // Synthetic records for MVP testing only.
 // These are deliberately marked demo_only so they cannot be mistaken
@@ -78,8 +119,17 @@ app.get("/", (req, res) => {
   });
 });
 
-app.post("/feed", (req, res) => {
+app.post("/feed", async (req, res) => {
   const profile = req.body || {};
+
+const { data: dbOpportunities, error: dbError } = await supabase
+  .from("opportunities")
+  .select("*")
+  .order("created_at", { ascending: false });
+
+if (dbError) {
+  return res.status(500).json({ error: dbError.message });
+}
 
   const discipline = String(profile.discipline || "").toLowerCase();
   const interests = (profile.subdisciplines || []).map((x) =>
@@ -90,11 +140,11 @@ app.post("/feed", (req, res) => {
     String(x).toLowerCase()
   );
 
-  const feed = opportunities
+  const feed = dbOpportunities
     .filter((opportunity) => {
       if (
         requestedTypes.length &&
-        !requestedTypes.includes(opportunity.opportunity_type)
+        !requestedTypes.includes(opportunity.category)
       ) {
         return false;
       }
@@ -110,7 +160,7 @@ app.post("/feed", (req, res) => {
         reasons.push("Matches your discipline");
       }
 
-      const countryMatch = opportunity.countries.some((country) =>
+      const countryMatch = [opportunity.country].some((country) =>
         countries.includes(country.toLowerCase())
       );
 
@@ -119,7 +169,7 @@ app.post("/feed", (req, res) => {
         reasons.push("Matches your preferred country");
       }
 
-      const interestMatch = opportunity.keywords.some((keyword) =>
+      const interestMatch = (opportunity.keywords || []).some((keyword) =>
         interests.some(
           (interest) =>
             keyword.includes(interest) || interest.includes(keyword)
