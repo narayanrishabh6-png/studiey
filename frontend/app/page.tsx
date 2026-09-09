@@ -64,19 +64,19 @@ export default function Home() {
       if (!res.ok) throw new Error(`API returned ${res.status}`);
       setFeed(await res.json());
     } catch (err) {
-      setError("Could not reach the ScholarFlow API. Start the backend on port 8000, then try again.");
+      setError("Could not reach the F API. Start the backend on port 8000, then try again.");
     } finally { setLoading(false); }
   }
 
   return (
     <main>
-      <nav className="nav"><div className="brand">ScholarFlow</div><div className="navtag">Academic opportunities. From the source.</div></nav>
+      <nav className="nav"><div className="brand">Studiey</div><div className="navtag">Academic opportunities. From the source.</div></nav>
 
       <section className="hero">
         <div>
           <div className="eyebrow">UG → POSTDOC</div>
           <h1>Stop searching everywhere.<br/>See what actually fits you.</h1>
-          <p>Create your academic profile once. ScholarFlow filters admissions, internships, research jobs, conferences, funding and academic opportunities to your field and stage.</p>
+          <p>Create your academic profile once. Studiey filters admissions, internships, research jobs, conferences, funding and academic opportunities to your field and stage.</p>
           <div className="trust">✓ Official/primary sources only &nbsp; ✓ Personalized matching &nbsp; ✓ Provenance on every listing</div>
         </div>
       </section>
@@ -109,7 +109,7 @@ export default function Home() {
         </section>
       </section>
 
-      <section className="principles"><h2>What ScholarFlow will never do</h2><div className="principleGrid"><div><b>Never invent eligibility</b><p>If an official notice does not state it, we show “Not specified”.</p></div><div><b>Never hide the source</b><p>Every listing keeps the original official notice and application link.</p></div><div><b>Never flood your feed</b><p>Field, stage and preference matching happen before ranking.</p></div></div></section>
+      <section className="principles"><h2>What Studiey will never do</h2><div className="principleGrid"><div><b>Never invent eligibility</b><p>If an official notice does not state it, we show “Not specified”.</p></div><div><b>Never hide the source</b><p>Every listing keeps the original official notice and application link.</p></div><div><b>Never flood your feed</b><p>Field, stage and preference matching happen before ranking.</p></div></div></section>
     </main>
   );
 }

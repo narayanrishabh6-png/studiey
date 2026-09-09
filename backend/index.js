@@ -14,7 +14,7 @@ const opportunities = [
   {
     id: "demo-001",
     title: "PhD in Cognitive Psychology — Demo",
-    institution: "ScholarFlow Demo University",
+    institution: "Studiey Demo University",
     department: "Department of Psychology",
     discipline: "Psychology",
     opportunity_type: "phd",
@@ -23,17 +23,17 @@ const opportunities = [
     deadline: null,
     official_source_url: "https://example.com",
     application_url: null,
-    source_label: "Synthetic ScholarFlow test record",
+    source_label: "Synthetic Studiey test record",
     last_checked_at: new Date().toISOString(),
     summary:
-      "Synthetic opportunity used to test ScholarFlow's profile matching and feed interface.",
+      "Synthetic opportunity used to test Studiey's profile matching and feed interface.",
     demo_only: true,
     keywords: ["cognitive psychology", "psychology", "cognition"],
   },
   {
     id: "demo-002",
     title: "Research Assistant — Behavioural Science — Demo",
-    institution: "ScholarFlow Demo Research Institute",
+    institution: "Studiey Demo Research Institute",
     department: "Behavioural Science Lab",
     discipline: "Psychology",
     opportunity_type: "research_job",
@@ -42,7 +42,7 @@ const opportunities = [
     deadline: null,
     official_source_url: "https://example.com",
     application_url: null,
-    source_label: "Synthetic ScholarFlow test record",
+    source_label: "Synthetic Studiey test record",
     last_checked_at: new Date().toISOString(),
     summary:
       "Synthetic research-assistant listing for testing personalized opportunity matching.",
@@ -52,7 +52,7 @@ const opportunities = [
   {
     id: "demo-003",
     title: "Conference on Cognition and Human Behaviour — Demo",
-    institution: "ScholarFlow Demo Academic Society",
+    institution: "Studiey Demo Academic Society",
     department: null,
     discipline: "Psychology",
     opportunity_type: "conference",
@@ -61,10 +61,10 @@ const opportunities = [
     deadline: null,
     official_source_url: "https://example.com",
     application_url: null,
-    source_label: "Synthetic ScholarFlow test record",
+    source_label: "Synthetic Studiey test record",
     last_checked_at: new Date().toISOString(),
     summary:
-      "Synthetic conference record for testing ScholarFlow's academic opportunity feed.",
+      "Synthetic conference record for testing Studiey's academic opportunity feed.",
     demo_only: true,
     keywords: ["cognitive psychology", "cognition", "behaviour"],
   },
@@ -72,7 +72,7 @@ const opportunities = [
 
 app.get("/", (req, res) => {
   res.json({
-    name: "ScholarFlow API",
+    name: "Studiey API",
     status: "running",
     mode: "MVP demo",
   });
@@ -149,5 +149,5 @@ app.post("/feed", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`ScholarFlow API running at http://localhost:${PORT}`);
+  console.log(`Studiey API running at http://localhost:${PORT}`);
 });
