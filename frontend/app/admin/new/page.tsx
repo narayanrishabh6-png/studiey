@@ -14,6 +14,9 @@ export default function NewOpportunityPage() {
     source_url: "",
     application_url: "",
     summary: "",
+    eligibility_text: "",
+funding_details: "",
+published_date: "",
   });
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -156,6 +159,38 @@ if (response.ok) {
       setForm({ ...form, summary: e.target.value })
     }
     rows={5}
+  />
+</p>
+<p>
+  <label>Eligibility</label><br />
+  <textarea
+    value={form.eligibility_text}
+    onChange={(e) =>
+      setForm({ ...form, eligibility_text: e.target.value })
+    }
+    rows={4}
+  />
+</p>
+
+<p>
+  <label>Funding Details</label><br />
+  <textarea
+    value={form.funding_details}
+    onChange={(e) =>
+      setForm({ ...form, funding_details: e.target.value })
+    }
+    rows={4}
+  />
+</p>
+
+<p>
+  <label>Published Date</label><br />
+  <input
+    type="date"
+    value={form.published_date}
+    onChange={(e) =>
+      setForm({ ...form, published_date: e.target.value })
+    }
   />
 </p>
 <p>

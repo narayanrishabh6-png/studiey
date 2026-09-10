@@ -219,6 +219,9 @@ app.post("/admin/opportunities/:id/needs-review", async (req, res) => {
     source_url,
     application_url,
     summary,
+    eligibility,
+funding_details,
+published_date,
   } = req.body;
 
   if (!title || !institution || !category || !source_url) {
@@ -240,6 +243,9 @@ app.post("/admin/opportunities/:id/needs-review", async (req, res) => {
       source_url,
       application_url: application_url || null,
       summary: summary || null,
+      eligibility: eligibility || null,
+funding_details: funding_details || null,
+published_date: published_date || null,
       verification_status: "pending",
       status: "active",
       extraction_method: "manual",
