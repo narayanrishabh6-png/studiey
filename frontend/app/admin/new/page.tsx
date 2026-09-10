@@ -27,7 +27,12 @@ export default function NewOpportunityPage() {
 });
 
 const data = await response.json();
-console.log(data);
+if (response.ok) {
+  alert("Opportunity added successfully — Pending verification");
+  window.location.href = "/admin";
+} else {
+  alert(data.error || "Failed to add opportunity");
+}
   }
 
   return (
