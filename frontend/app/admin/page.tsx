@@ -9,12 +9,12 @@ const [needsReview, setNeedsReview] = useState<any[]>([]);
 useEffect(() => {
   fetch("http://localhost:8000/admin/opportunities/needs-review")
   .then((res) => res.json())
-  .then((data) => setNeedsReview(data))
+  .then((data) => setNeedsReview(Array.isArray(data) ? data : []))
   .catch((error) => console.error("Failed to load needs review:", error));
 
   fetch("http://localhost:8000/admin/opportunities/pending")
     .then((res) => res.json())
-    .then((data) => setOpportunities(data))
+    .then((data) => setOpportunities(Array.isArray(data) ? data : []))
     .catch((error) => console.error("Failed to load opportunities:", error));
 }, []);
   return (
@@ -29,6 +29,16 @@ useEffect(() => {
     <h2>{opportunity.title}</h2>
     <p>{opportunity.institution}</p>
     <p>Status: {opportunity.verification_status}</p>
+    <p>
+  Source:{" "}
+  <a
+    href={opportunity.source_url}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Open Official Source
+  </a>
+</p>
     <button
   onClick={() => {
     fetch(`http://localhost:8000/admin/opportunities/${opportunity.id}/verify`, {
