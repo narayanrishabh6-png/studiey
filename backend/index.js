@@ -207,6 +207,54 @@ app.post("/admin/opportunities/:id/needs-review", async (req, res) => {
   res.json(data);
 });
 
+  app.post("/admin/opportunities", async (req, res) => {
+  const {
+    title,
+    institution,
+    department,
+    category,
+    discipline,
+    country,
+    deadline,
+    source_url,
+    application_url,
+    summary,
+  } = req.body;
+
+  if (!title || !institution || !category || !source_url) {
+    return res.status(400).json({
+      error: "Title, institution, category, and official source URL are required.",
+    });
+  }
+
+  const { data, error } = await supabase
+    .from("opportunities")
+    .insert({
+      title,
+      institution,
+      department: department || null,
+      category,
+      discipline: discipline || null,
+      country: country || null,
+      deadline: deadline || null,
+      source_url,
+      application_url: application_url || null,
+      summary: summary || null,
+      verification_status: "pending",
+      status: "active",
+      extraction_method: "manual",
+      last_checked_at: new Date().toISOString(),
+    })
+    .select()
+    .single();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.status(201).json(data);
+});
+
 app.post("/feed", async (req, res) => {
   const profile = req.body || {};
 
