@@ -119,6 +119,94 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/admin/opportunities/pending", async (req, res) => {
+  const { data, error } = await supabase
+    .from("opportunities")
+    .select("*")
+    .eq("verification_status", "pending")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json(data || []);
+});
+
+app.get("/admin/opportunities/needs-review", async (req, res) => {
+  const { data, error } = await supabase
+    .from("opportunities")
+    .select("*")
+    .eq("verification_status", "needs_review")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json(data || []);
+});
+
+app.post("/admin/opportunities/:id/verify", async (req, res) => {
+  const { id } = req.params;
+
+  const { data, error } = await supabase
+    .from("opportunities")
+    .update({
+      verification_status: "verified",
+      last_checked_at: new Date().toISOString(),
+    })
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json(data);
+});
+
+app.post("/admin/opportunities/:id/reject", async (req, res) => {
+  const { id } = req.params;
+
+  const { data, error } = await supabase
+    .from("opportunities")
+    .update({
+      verification_status: "rejected",
+      last_checked_at: new Date().toISOString(),
+    })
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json(data);
+});
+
+app.post("/admin/opportunities/:id/needs-review", async (req, res) => {
+  const { id } = req.params;
+
+  const { data, error } = await supabase
+    .from("opportunities")
+    .update({
+      verification_status: "needs_review",
+      last_checked_at: new Date().toISOString(),
+    })
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json(data);
+});
+
 app.post("/feed", async (req, res) => {
   const profile = req.body || {};
 
