@@ -28,7 +28,33 @@ useEffect(() => {
   <div key={opportunity.id}>
     <h2>{opportunity.title}</h2>
     <p>{opportunity.institution}</p>
+    <p>Department: {opportunity.department || "Not specified"}</p>
     <p>Status: {opportunity.verification_status}</p>
+    <p>Category: {opportunity.category || "Not specified"}</p>
+<p>Discipline: {opportunity.discipline || "Not specified"}</p>
+<p>Country: {opportunity.country || "Not specified"}</p>
+<p>Deadline: {opportunity.deadline || "Not specified"}</p>
+<p>Published Date: {opportunity.published_date || "Not specified"}</p>
+
+<p>
+  <strong>Eligibility:</strong><br />
+  {opportunity.eligibility || "Not specified"}
+</p>
+
+<p>
+  <strong>Funding:</strong><br />
+  {opportunity.funding_details || "Not specified"}
+</p>
+
+<p>
+  <strong>Documents Required:</strong><br />
+  {opportunity.documents_required || "Not specified"}
+</p>
+
+<p>
+  <strong>Summary:</strong><br />
+  {opportunity.summary || "Not specified"}
+</p>
     <p>
   Source:{" "}
   <a
@@ -39,6 +65,18 @@ useEffect(() => {
     Open Official Source
   </a>
 </p>
+{opportunity.application_url && (
+  <p>
+    Application:{" "}
+    <a
+      href={opportunity.application_url}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Open Application Page
+    </a>
+  </p>
+)}
     <button
   onClick={() => {
     fetch(`http://localhost:8000/admin/opportunities/${opportunity.id}/verify`, {

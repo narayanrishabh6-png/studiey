@@ -14,7 +14,8 @@ export default function NewOpportunityPage() {
     source_url: "",
     application_url: "",
     summary: "",
-    eligibility_text: "",
+    eligibility: "",
+    documents_required: "",
 funding_details: "",
 published_date: "",
   });
@@ -164,9 +165,9 @@ if (response.ok) {
 <p>
   <label>Eligibility</label><br />
   <textarea
-    value={form.eligibility_text}
+    value={form.eligibility}
     onChange={(e) =>
-      setForm({ ...form, eligibility_text: e.target.value })
+      setForm({ ...form, eligibility: e.target.value })
     }
     rows={4}
   />
@@ -174,6 +175,7 @@ if (response.ok) {
 
 <p>
   <label>Funding Details</label><br />
+  
   <textarea
     value={form.funding_details}
     onChange={(e) =>
@@ -182,6 +184,18 @@ if (response.ok) {
     rows={4}
   />
 </p>
+<label>
+  Documents Required
+  <br />
+  <textarea
+    value={form.documents_required}
+    onChange={(e) =>
+      setForm({ ...form, documents_required: e.target.value })
+    }
+  />
+</label>
+
+<br /><br />
 
 <p>
   <label>Published Date</label><br />
