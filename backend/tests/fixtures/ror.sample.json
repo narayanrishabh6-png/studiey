@@ -1,0 +1,38 @@
+[
+  {
+    "id": "https://ror.org/013meh722",
+    "names": [
+      {
+        "value": "University of Cambridge",
+        "types": ["ror_display"]
+      }
+    ],
+    "domains": ["cam.ac.uk"],
+    "locations": [
+      {
+        "geonames_details": {
+          "country_name": "United Kingdom",
+          "country_code": "GB"
+        }
+      }
+    ]
+  },
+  {
+    "id": "https://ror.org/019wvm592",
+    "names": [
+      {
+        "value": "Australian National University",
+        "types": ["ror_display"]
+      }
+    ],
+    "domains": ["anu.edu.au"],
+    "locations": [
+      {
+        "geonames_details": {
+          "country_name": "Australia",
+          "country_code": "AU"
+        }
+      }
+    ]
+  }
+]
